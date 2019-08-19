@@ -47,7 +47,8 @@
               <b-col cols="8">
                 <b-progress class="mt-2" :max="100" height="4rem" show-value  show-progress animated>
                 <!-- <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index"  :value="value[index]" variant="success"></b-progress-bar>v-bind:style="{'background':Pcolor}" -->
-                <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" :variant="actual_times < plan_time[index] ? 'success' : actual_times > plan_time[index] ? 'danger' : actual_times == plan_time[index] ? 'warning' : 'primary'"><strong>{{actual_times}}</strong></b-progress-bar>
+                <!-- <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" :variant="actual_times < plan_time[index] ? 'success' : actual_times > plan_time[index] ? 'danger' : actual_times == plan_time[index] ? 'warning' : 'primary'"><strong>{{actual_times}}</strong></b-progress-bar> -->
+                <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{actual_times}}</strong></b-progress-bar>
                 </b-progress><br>
               </b-col>
               <b-col></b-col>
