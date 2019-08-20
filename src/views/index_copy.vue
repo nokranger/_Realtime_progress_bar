@@ -32,7 +32,7 @@
             <b-row class="text-center">
               <b-col></b-col>
               <b-col cols="8">
-                  <h1 style="border: solid 2px #E0e0e0;background-color: white;margin:5px" v-for="(plan_times, index) in plan_time" :key="index"><h1 style="margin:5px;">P{{index}} : {{plan_times}} </h1></h1>
+                  <h1 id="P_time" v-for="(plan_times, index) in plan_time" :key="index" v-rainbow="index"><h1 style="margin:5px;">P{{index}} : {{plan_times}} </h1></h1>
               </b-col>
               <b-col></b-col>
             </b-row>
@@ -152,12 +152,41 @@ export default {
       this.Pcolor = color
       return color
     }
+  },
+  directives: {
+    // rainbow: {
+    //   bind (el, binding, vnode) {
+    //     el.style.background = 'red'
+    //     // binding.value
+    //     // '#' +
+    //     // Math.random()
+    //     //   .toString(16)
+    //     //   .slice(2, 8)
+    //     el.style.color = 'white'
+    //   }
+    // },
+    rainbow: {
+      bind (el, bind, vnode) {
+        if (bind.value % 5 === 0) {
+          el.style.background = '#ffc107'
+        } else if (bind.value % 4 === 0) {
+          el.style.background = '#28a745'
+        } else if (bind.value % 3 === 0) {
+          el.style.background = '#dc3545'
+        } else if (bind.value % 2 === 0) {
+          el.style.background = '#007bff'
+        } else if (bind.value % 1 === 0) {
+          el.style.background = '#6c757d'
+        } else {
+          el.style.background = '#343a40'
+        }
+        el.style.color = 'white'
+      }
+    }
   }
 }
 </script>
 <style scoped>
-@import '../assets/css/vue-material.min.css';
-@import '../assets/css/default.css';
 label {
   font-size: 28px !important;
   font-family: 'Kanit', sans-serif !important;
@@ -174,5 +203,10 @@ h1 {
   font-family: 'Kanit', sans-serif !important;
   font-weight: bold !important;
   font-size: 3rem;
+}
+#P_time {
+border: solid 2px #E0e0e0;
+/* background-color: white; */
+margin:5px;
 }
 </style>
