@@ -8,22 +8,10 @@
           <b-col cols="1"></b-col>
           <b-col style="border: solid 2px #E0e0e0;background: #33c7f7;margin:5px;color:white;" cols="5"><br><label>VIN : {{ VIN }}</label><br></b-col>
           <b-col style="border: solid 2px #E0e0e0;background-color: #33c7f7;margin:5px;color:white;" cols="5"><br><label>OPTION GROUP : {{OPTION_GROUP}}</label><br></b-col>
-          <!-- <b-col style="border: solid 2px #E0e0e0;background-color: #33c7f7;margin:5px;color:white;" cols="5"><br><label>URN : {{URN}}</label><br></b-col> -->
           <b-col cols="1"></b-col>
           <br>
         </b-row>
       </div>
-        <!-- <label>VIN : {{ VIN }}</label><br> -->
-      <!-- <div>
-        <label>URN : {{URN}}</label><br>
-      </div> -->
-      <!-- <div>
-        <b-row class="text-center">
-          <b-col cols="1"></b-col>
-          <b-col style="border: solid 2px #E0e0e0;background-color: #33c7f7;margin:10px;color:white;" cols="10"><br><label>OPTION GROUP : {{OPTION_GROUP}}</label><br></b-col>
-          <b-col cols="1"></b-col>
-        </b-row>
-      </div> -->
     </div>
     <div style="text-align: left;margin-left: 10px;margin-top: 20px;">
         <div>
@@ -39,15 +27,12 @@
           </div>
         </div>
         <div>
-          <!-- <label v-bind:style="S_actual < S_plan ? {color: 'green'} : S_actual > S_plan ? {color: 'bule'} : S_actual == S_plan ? { color: 'yellow'} : { color : 'black'}" -->
         <br><label style="border: solid 2px #E0e0e0;background-color: white;margin:5px;"><label style="margin:5px;"> ACTUAL : <label id="s_actual">{{S_actual}}</label></label></label>
           <div>
             <b-row class="text-center">
               <b-col></b-col>
               <b-col cols="8">
                 <b-progress class="mt-2" :max="100" height="4rem" show-value  show-progress animated>
-                <!-- <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index"  :value="value[index]" variant="success"></b-progress-bar>v-bind:style="{'background':Pcolor}" -->
-                <!-- <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" :variant="actual_times < plan_time[index] ? 'success' : actual_times > plan_time[index] ? 'danger' : actual_times == plan_time[index] ? 'warning' : 'primary'"><strong>{{actual_times}}</strong></b-progress-bar> -->
                 <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{actual_times}}</strong></b-progress-bar>
                 </b-progress><br>
               </b-col>
@@ -106,7 +91,7 @@ export default {
     var connection = new WebSocket('ws://localhost:4040')
     connection.onopen = function () {
       // จะทำงานเมื่อเชื่อมต่อสำเร็จ
-      console.log('connect webSocket')
+      // console.log('connect webSocket')
       connection.send('Hello server i"m client') // ส่ง Data ไปที่ Server
     }
     connection.onerror = function (error) {
@@ -116,8 +101,8 @@ export default {
       vm.S_plan = 0
       vm.S_actual = 0
       // log ค่าที่ถูกส่งมาจาก server
-      console.log('message from server: ', e.data)
-      console.log('parser : ', JSON.parse(e.data))
+      // console.log('message from server: ', e.data)
+      // console.log('parser : ', JSON.parse(e.data))
       let res = JSON.parse(e.data)
       vm.getData(res)
       vm.getRandomColor()
@@ -133,8 +118,8 @@ export default {
       this.diff = data.info.diff
       this.plan_time = data.info.option_std_time_
       this.actual_time = data.info.option_time_
-      console.log(data.info.vin_no)
-      console.log(data.info.start)
+      // console.log(data.info.vin_no)
+      // console.log(data.info.start)
       for (var i = 0; i < data.info.option_std_time_.length; i++) {
         this.S_plan = this.S_plan + data.info.option_std_time_[i]
       }
@@ -148,23 +133,12 @@ export default {
       for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)]
       }
-      console.log(color)
+      // console.log(color)
       this.Pcolor = color
       return color
     }
   },
   directives: {
-    // rainbow: {
-    //   bind (el, binding, vnode) {
-    //     el.style.background = 'red'
-    //     // binding.value
-    //     // '#' +
-    //     // Math.random()
-    //     //   .toString(16)
-    //     //   .slice(2, 8)
-    //     el.style.color = 'white'
-    //   }
-    // },
     rainbow: {
       bind (el, bind, vnode) {
         if (bind.value % 5 === 0) {
