@@ -15,10 +15,10 @@
     </div>
     <div style="text-align: left;margin-left: 10px;margin-top: 20px;">
         <div>
-          <label style="border: solid 2px #E0e0e0;background-color: white;margin:5px;"><label style="margin:5px;">PLAN : <label id="s_plan">{{S_plan}}</label></label></label>
+          <!-- <label style="border: solid 2px #E0e0e0;background-color: white;margin:5px;"><label style="margin:5px;">PLAN : <label id="s_plan">{{S_plan}}</label></label></label> -->
           <div>
             <b-row class="text-center">
-              <b-col></b-col>
+              <b-col><label style="border: solid 2px #E0e0e0;background-color: white;margin:5px;"><label style="margin:5px;">PLAN : <label id="s_plan">{{S_plan}}</label></label></label></b-col>
               <b-col cols="8">
                   <h1 id="P_time" v-for="(plan_times, index) in plan_time" :key="index" v-rainbow="index"><h1 style="margin:5px;">P{{index}} : {{plan_times}} </h1></h1>
               </b-col>
@@ -27,11 +27,24 @@
           </div>
         </div>
         <div>
-        <br><label style="border: solid 2px #E0e0e0;background-color: white;margin:5px;"><label style="margin:5px;"> ACTUAL : <label id="s_actual">{{S_actual}}</label></label></label>
           <div>
             <b-row class="text-center">
               <b-col></b-col>
               <b-col cols="8">
+                <br>
+                <b-progress class="mt-2" :max="100" height="4rem" show-value  show-progress animated>
+                <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{actual_times}}</strong></b-progress-bar>
+                </b-progress><br>
+              </b-col>
+              <b-col></b-col>
+            </b-row>
+          </div>
+        <!-- <br><label style="border: solid 2px #E0e0e0;background-color: white;margin:5px;"><label style="margin:5px;"> ACTUAL : <label id="s_actual">{{S_actual}}</label></label></label> -->
+          <div>
+            <b-row class="text-center">
+              <b-col><br><label style="border: solid 2px #E0e0e0;background-color: white;margin:5px;"><label style="margin:5px;"> ACTUAL : <label id="s_actual">{{S_actual}}</label></label></label></b-col>
+              <b-col cols="8">
+                <br>
                 <b-progress class="mt-2" :max="100" height="4rem" show-value  show-progress animated>
                 <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{actual_times}}</strong></b-progress-bar>
                 </b-progress><br>
@@ -47,6 +60,8 @@
               <br>
             </b-row>
           </div>
+          <button v-on:click="STOPSV ()">STOP</button>
+          <button v-on:click="HELPSV ()">HELP</button>
           <div>
           </div>
         </div>
@@ -136,6 +151,30 @@ export default {
       // console.log(color)
       this.Pcolor = color
       return color
+    },
+    STOPSV () {
+      console.log('stop')
+      var connection = new WebSocket('ws://localhost:4040')
+      connection.onopen = function () {
+        // จะทำงานเมื่อเชื่อมต่อสำเร็จ
+        // console.log('connect webSocket')
+        connection.send(JSON.stringify({ 'protocol': 'pace_maker_status', 'data': { 'bay': 'C1', 'status': 'STOP' } })) // ส่ง Data ไปที่ Server
+      }
+      connection.onerror = function (error) {
+        console.error('WebSocket Error ' + error)
+      }
+    },
+    HELPSV () {
+      console.log('stop')
+      var connection = new WebSocket('ws://localhost:4040')
+      connection.onopen = function () {
+        // จะทำงานเมื่อเชื่อมต่อสำเร็จ
+        // console.log('connect webSocket')
+        connection.send(JSON.stringify({ 'protocol': 'pace_maker_status', 'data': { 'bay': 'C1', 'status': 'HELP' } })) // ส่ง Data ไปที่ Server
+      }
+      connection.onerror = function (error) {
+        console.error('WebSocket Error ' + error)
+      }
     }
   },
   directives: {
@@ -162,7 +201,7 @@ export default {
 </script>
 <style scoped>
 label {
-  font-size: 28px !important;
+  font-size: 20px !important;
   font-family: 'Kanit', sans-serif !important;
   font-weight: bold !important;
   /* background: #a6c2ce */
