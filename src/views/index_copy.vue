@@ -33,10 +33,16 @@
               <b-col cols="8">
                 <br>
                 <b-progress class="mt-2" :max="100" height="4rem" show-value  show-progress animated>
-                <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{actual_times}}</strong></b-progress-bar>
+                <b-progress-bar v-for="(plan_times, index) in plan_time" :key="index" :value="plan_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{plan_times}}</strong></b-progress-bar>
                 </b-progress><br>
               </b-col>
-              <b-col></b-col>
+              <b-col>
+                <!-- <div id="traffic-light">
+                  <input type="radio" name="traffic-light-color" id="color1" value="color1" />
+                  <input type="radio" name="traffic-light-color" id="color2" value="color2"/>
+                  <input type="radio" name="traffic-light-color" id="color3" value="color3" />
+                </div> -->
+              </b-col>
             </b-row>
           </div>
         <!-- <br><label style="border: solid 2px #E0e0e0;background-color: white;margin:5px;"><label style="margin:5px;"> ACTUAL : <label id="s_actual">{{S_actual}}</label></label></label> -->
@@ -49,7 +55,13 @@
                 <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{actual_times}}</strong></b-progress-bar>
                 </b-progress><br>
               </b-col>
-              <b-col></b-col>
+              <b-col>
+                <div id="traffic-light">
+                  <input type="radio" name="traffic-light-color" id="color1" value="color1" />
+                  <input type="radio" name="traffic-light-color" id="color2" value="color2"/>
+                  <input type="radio" name="traffic-light-color" id="color3" value="color3" />
+                </div>
+              </b-col>
             </b-row>
           </div>
           <div style="display: flex;height: 100%;justify-content: center;align-items: center;">
@@ -57,11 +69,17 @@
               <b-col style="border: solid 2px #E0e0e0;background-color: #eecb27;margin:5px;color:white;" cols="3.5"><br><label style="margin:5px;">Start : {{start_time}}</label><br><br></b-col>
               <b-col style="border: solid 2px #E0e0e0;background-color: #e13239;margin:5px;color:white;" cols="3.5"><br><label style="margin:5px;">Finish : {{finish_time}}</label><br><br></b-col>
               <b-col style="border: solid 2px #E0e0e0;background-color: #1f1762;margin:5px;color:white;" cols="3.5"><br><label style="margin:5px;">Diff : {{S_plan - S_actual}}</label><br><br></b-col>
+              <b-col class="col-auto">
+                <b-button style="margin-right:5px;" v-on:click="STOPSV ()" variant="danger">STOP</b-button>
+                <b-button v-on:click="HELPSV ()" variant="success">HELP</b-button>
+              </b-col>
               <br>
             </b-row>
           </div>
-          <button v-on:click="STOPSV ()">STOP</button>
-          <button v-on:click="HELPSV ()">HELP</button>
+        <div>
+        </div>
+            <!-- <button v-on:click="STOPSV ()">STOP</button>
+            <button v-on:click="HELPSV ()">HELP</button> -->
           <div>
           </div>
         </div>
@@ -165,7 +183,7 @@ export default {
       }
     },
     HELPSV () {
-      console.log('stop')
+      console.log('help')
       var connection = new WebSocket('ws://localhost:4040')
       connection.onopen = function () {
         // จะทำงานเมื่อเชื่อมต่อสำเร็จ
@@ -221,5 +239,94 @@ h1 {
 border: solid 2px #E0e0e0;
 /* background-color: white; */
 margin:5px;
+}
+#traffic-light {
+  position: absolute;
+  display: block;
+  left: 50%;
+  top: 50%;
+  margin-left: -60px;
+  margin-top: -160px;
+  background-color: #333;
+  width: 120px;
+  height: 320px;
+  border-radius: 30px;
+}
+input {
+  appearance: none;
+  position: relative;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  margin-top: 20px;
+  margin-left: -40px;
+  background-color: grey;
+  /* vertical-align: middle; */
+  border-radius: 100%;
+  display: block;
+}
+input#color1 {
+  background-color: #b30000;
+}
+input#color1:hover {
+  animation: blink1 1.1s step-end infinite;
+}
+input#color1:checked {
+  background-color: #FF0000;
+  box-shadow: 0 0 6em #ff3333;
+}
+input#color2 {
+  background-color: #b2b300;
+}
+input#color2:hover {
+  animation: blink2 1s step-end infinite;
+}
+input#color2:checked {
+  background-color: #FFFF00;
+  box-shadow: 0 0 6em #ffff33;
+}
+input#color3 {
+  background-color: #00b300;
+}
+input#color3:hover {
+  animation: blink3 1s step-end infinite;
+}
+input#color3:checked {
+  background-color: #00FF00;
+  box-shadow: 0 0 6em #33ff33;
+}
+@keyframes blink1 {
+  0% {
+    background-color: #FF0000;
+    box-shadow: 0 0 6em #ff3333;
+  }
+  50% {
+    background-color: #b30000;
+    box-shadow: 0 0 0em transparent;
+  }
+}
+@keyframes blink2 {
+  0% {
+    background-color: #FFFF00;
+    box-shadow: 0 0 6em #ffff33;
+  }
+  50% {
+    background-color: #b2b300;
+    box-shadow: 0 0 0em transparent;
+  }
+}
+@keyframes blink3 {
+  0% {
+    background-color: #00FF00;
+    box-shadow: 0 0 6em #33ff33;
+  }
+  50% {
+    background-color: #00b300;
+    box-shadow: 0 0 0em transparent;
+  }
+}
+* {
+  user-select: none;
+  outline: none;
 }
 </style>

@@ -11,7 +11,8 @@
 export default {
   data () {
     return {
-      color: '#f4f5f7'
+      // color: '#f4f5f7'
+      color: 'white'
     }
   }
 }
