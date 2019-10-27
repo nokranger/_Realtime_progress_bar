@@ -33,7 +33,7 @@
               <b-col cols="8">
                 <br>
                 <b-progress class="mt-2" :max="100" height="4rem" show-value  show-progress animated>
-                <b-progress-bar v-for="(plan_times, index) in plan_time" :key="index" :value="plan_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{plan_times}}</strong></b-progress-bar>
+                <b-progress-bar v-for="(plan_times, index) in plan_time" :key="index" :value="plan_times" v-blink="plan_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{plan_times}}</strong></b-progress-bar>
                 </b-progress><br>
               </b-col>
               <b-col>
@@ -52,7 +52,7 @@
               <b-col cols="8">
                 <br>
                 <b-progress class="mt-2" :max="100" height="4rem" show-value  show-progress animated>
-                <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{actual_times}}</strong></b-progress-bar>
+                <b-progress-bar v-for="(actual_times, index) in actual_time" :key="index" :value="actual_times" v-blink="actual_times" :variant="index % 5 === 0 ? 'warning' : index % 4 === 0 ? 'success' : index % 3 === 0 ? 'danger' : index % 2 === 0 ? 'primary' : index % 1 === 0 ? 'secondary' : 'dark'"><strong>{{actual_times}}</strong></b-progress-bar>
                 </b-progress><br>
               </b-col>
               <b-col>
@@ -139,7 +139,11 @@ export default {
       let res = JSON.parse(e.data)
       vm.getData(res)
       vm.getRandomColor()
+      vm.getData2(res)
     }
+  },
+  updated () {
+    console.log('update')
   },
   methods: {
     getData (res) {
@@ -193,6 +197,10 @@ export default {
       connection.onerror = function (error) {
         console.error('WebSocket Error ' + error)
       }
+    },
+    blink () {
+      let x = document.getElementById('act').value
+      console.log('test change', x)
     }
   },
   directives: {
@@ -212,6 +220,55 @@ export default {
           el.style.background = '#343a40'
         }
         el.style.color = 'white'
+      }
+    },
+    blink: {
+      bind (el, bind, vnode) {
+        // console.log(bind.value)
+        // let x = []
+        // for(let i = 0;i<bind.length;i++){
+        //   x[i] = bind.value
+        // }
+        // console.log(x)
+        // console.log(bind)
+        // console.log(vnode)
+        if (bind.value >= ((bind.value * 70) / 100)) { // yellow
+          document.getElementById('color2').style.animation = '1s step-end infinite'
+          document.getElementById('color2').style.backgroundColor = '#FFFF00'
+          document.getElementById('color2').style.boxShadow = '0 0 6em #ffff33'
+
+          document.getElementById('color1').style.animation = '1s step-end infinite'
+          document.getElementById('color1').style.backgroundColor = '#b30000'
+          document.getElementById('color1').style.boxShadow = '0 0 0em transparent'
+
+          document.getElementById('color3').style.animation = '1s step-end infinite'
+          document.getElementById('color3').style.backgroundColor = '#00b300'
+          document.getElementById('color3').style.boxShadow = '0 0 0em transparent'
+        } else if (bind.value <= ((bind.value * 70) / 100)) { //  green
+          document.getElementById('color3').style.animation = '1s step-end infinite'
+          document.getElementById('color3').style.backgroundColor = '#00FF00'
+          document.getElementById('color3').style.boxShadow = '0 0 6em #33ff33'
+
+          document.getElementById('color2').style.animation = '1s step-end infinite'
+          document.getElementById('color2').style.backgroundColor = '#b2b300'
+          document.getElementById('color2').style.boxShadow = '0 0 0em transparent'
+
+          document.getElementById('color1').style.animation = '1s step-end infinite'
+          document.getElementById('color1').style.backgroundColor = '#b30000'
+          document.getElementById('color1').style.boxShadow = '0 0 0em transparent'
+        } else if (bind.value > ((bind.value * 100) / 100)) {
+          document.getElementById('color1').style.animation = '1s step-end infinite'
+          document.getElementById('color1').style.backgroundColor = '#FF0000'
+          document.getElementById('color1').style.boxShadow = '0 0 6em #ff3333'
+
+          document.getElementById('color2').style.animation = '1s step-end infinite'
+          document.getElementById('color2').style.backgroundColor = '#b2b300'
+          document.getElementById('color2').style.boxShadow = '0 0 0em transparent'
+
+          document.getElementById('color3').style.animation = '1s step-end infinite'
+          document.getElementById('color3').style.backgroundColor = '#00b300'
+          document.getElementById('color3').style.boxShadow = '0 0 0em transparent'
+        }
       }
     }
   }
