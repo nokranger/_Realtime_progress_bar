@@ -122,18 +122,18 @@ export default {
     let vm = this
     vm.S_plan = 0
     vm.S_actual = 0
-    var connection = new WebSocket('ws://localhost:4040')
+    var connection = new WebSocket('ws://localhost:1308')
     connection.onopen = function () {
       // จะทำงานเมื่อเชื่อมต่อสำเร็จ
       // console.log('connect webSocket')
-      connection.send('Hello server i"m client') // ส่ง Data ไปที่ Server
+      connection.send(JSON.stringify({ 'protocol': 'change_page', 'data': { 'page': 'C1' } }))
     }
     connection.onerror = function (error) {
       console.error('WebSocket Error ' + error)
     }
     connection.onmessage = function (e) {
-      vm.S_plan = 0
-      vm.S_actual = 0
+      // vm.S_plan = 0
+      // vm.S_actual = 0
       // log ค่าที่ถูกส่งมาจาก server
       // console.log('message from server: ', e.data)
       // console.log('parser : ', JSON.parse(e.data))
@@ -179,12 +179,17 @@ export default {
       console.log(this.status)
       // console.log(data.info.vin_no)
       // console.log(data.info.start)
+      var sp = 0
+      var sa = 0
       for (var i = 0; i < data.info.option_std_time_.length; i++) {
-        this.S_plan = this.S_plan + data.info.option_std_time_[i]
+        sp = sp + data.info.option_std_time_[i]
       }
       for (var j = 0; j < data.info.option_time_.length; j++) {
-        this.S_actual = this.S_actual + data.info.option_time_[j]
+        sa = sa + data.info.option_time_[j]
       }
+      this.S_plan = sp
+      this.S_actual = sa
+
       if (this.status === 'NO_WORKING') { // no light
         setNolight()
       } else if (this.status === 'WORKING') { //  green
@@ -267,11 +272,11 @@ export default {
     },
     STOPSV () {
       console.log('stop')
-      var connection = new WebSocket('ws://localhost:4040')
+      var connection = new WebSocket('ws://localhost:1308')
       connection.onopen = function () {
         // จะทำงานเมื่อเชื่อมต่อสำเร็จ
         // console.log('connect webSocket')
-        connection.send(JSON.stringify({ 'protocol': 'pace_maker_status', 'data': { 'bay': 'C1', 'status': 'STOP' } })) // ส่ง Data ไปที่ Server
+        connection.send(JSON.stringify({ 'protocol': 'pace_maker_status', 'data': { 'bay': 'C1', 'status': 'STOP_WARNING' } })) // ส่ง Data ไปที่ Server
       }
       connection.onerror = function (error) {
         console.error('WebSocket Error ' + error)
@@ -279,7 +284,7 @@ export default {
     },
     HELPSV () {
       console.log('help')
-      var connection = new WebSocket('ws://localhost:4040')
+      var connection = new WebSocket('ws://localhost:1308')
       connection.onopen = function () {
         // จะทำงานเมื่อเชื่อมต่อสำเร็จ
         // console.log('connect webSocket')
