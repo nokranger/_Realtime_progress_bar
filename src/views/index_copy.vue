@@ -210,11 +210,11 @@ export default {
         document.getElementById('color1').style.boxShadow = '0 0 6em #ff3333'
 
         document.getElementById('color2').style.animation = '1s step-end infinite'
-        document.getElementById('color2').style.backgroundColor = '#b2b300'
+        document.getElementById('color2').style.backgroundColor = '#5e5e00'
         document.getElementById('color2').style.boxShadow = '0 0 0em transparent'
 
         document.getElementById('color3').style.animation = '1s step-end infinite'
-        document.getElementById('color3').style.backgroundColor = '#00b300'
+        document.getElementById('color3').style.backgroundColor = '#005f00'
         document.getElementById('color3').style.boxShadow = '0 0 0em transparent'
       }
       function setGreen () {
@@ -224,11 +224,11 @@ export default {
         document.getElementById('color3').style.boxShadow = '0 0 6em #33ff33'
 
         document.getElementById('color2').style.animation = '1s step-end infinite'
-        document.getElementById('color2').style.backgroundColor = '#b2b300'
+        document.getElementById('color2').style.backgroundColor = '#5e5e00'
         document.getElementById('color2').style.boxShadow = '0 0 0em transparent'
 
         document.getElementById('color1').style.animation = '1s step-end infinite'
-        document.getElementById('color1').style.backgroundColor = '#b30000'
+        document.getElementById('color1').style.backgroundColor = '#570000'
         document.getElementById('color1').style.boxShadow = '0 0 0em transparent'
       }
       function setYellow () {
@@ -238,25 +238,25 @@ export default {
         document.getElementById('color2').style.boxShadow = '0 0 6em #ffff33'
 
         document.getElementById('color1').style.animation = '1s step-end infinite'
-        document.getElementById('color1').style.backgroundColor = '#b30000'
+        document.getElementById('color1').style.backgroundColor = '#570000'
         document.getElementById('color1').style.boxShadow = '0 0 0em transparent'
 
         document.getElementById('color3').style.animation = '1s step-end infinite'
-        document.getElementById('color3').style.backgroundColor = '#00b300'
+        document.getElementById('color3').style.backgroundColor = '#005f00'
         document.getElementById('color3').style.boxShadow = '0 0 0em transparent'
       }
       function setNolight () {
         console.log('nolight')
         document.getElementById('color2').style.animation = '1s step-end infinite'
-        document.getElementById('color2').style.backgroundColor = '#b2b300'
+        document.getElementById('color2').style.backgroundColor = '#5e5e00'
         document.getElementById('color2').style.boxShadow = '0 0 0em transparent'
 
         document.getElementById('color1').style.animation = '1s step-end infinite'
-        document.getElementById('color1').style.backgroundColor = '#b30000'
+        document.getElementById('color1').style.backgroundColor = '#570000'
         document.getElementById('color1').style.boxShadow = '0 0 0em transparent'
 
         document.getElementById('color3').style.animation = '1s step-end infinite'
-        document.getElementById('color3').style.backgroundColor = '#00b300'
+        document.getElementById('color3').style.backgroundColor = '#005f00'
         document.getElementById('color3').style.boxShadow = '0 0 0em transparent'
       }
     },
@@ -411,7 +411,7 @@ input {
   display: block;
 }
 input#color1 {
-  background-color: #b30000;
+  background-color: #570000;
 }
 input#color1:hover {
   animation: blink1 1.1s step-end infinite;
@@ -421,7 +421,7 @@ input#color1:checked {
   box-shadow: 0 0 6em #ff3333;
 }
 input#color2 {
-  background-color: #b2b300;
+  background-color: #5e5e00;
 }
 input#color2:hover {
   animation: blink2 1s step-end infinite;
@@ -431,7 +431,7 @@ input#color2:checked {
   box-shadow: 0 0 6em #ffff33;
 }
 input#color3 {
-  background-color: #00b300;
+  background-color: #005f00;
 }
 input#color3:hover {
   animation: blink3 1s step-end infinite;
