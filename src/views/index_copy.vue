@@ -69,10 +69,15 @@
               <b-col style="border: solid 2px #E0e0e0;background-color: #eecb27;margin:5px;color:white;" cols="3.5"><br><label style="margin:5px;">Start : {{start_time}}</label><br><br></b-col>
               <b-col style="border: solid 2px #E0e0e0;background-color: #e13239;margin:5px;color:white;" cols="3.5"><br><label style="margin:5px;">Finish : {{finish_time}}</label><br><br></b-col>
               <b-col style="border: solid 2px #E0e0e0;background-color: #1f1762;margin:5px;color:white;" cols="3.5"><br><label style="margin:5px;">Diff : {{S_plan - S_actual}}</label><br><br></b-col>
-              <b-col class="col-auto">
-                <b-button style="margin-right:5px;" v-on:click="STOPSV ()" variant="danger">STOP</b-button>
-                <b-button v-on:click="HELPSV ()" variant="success">HELP</b-button>
-              </b-col>
+              <br>
+            </b-row>
+          </div>
+          <br>
+          <div style="display: flex;height: 100%;justify-content: center;align-items: center;">
+            <b-row class="text-center">
+              <b-col cols="5"><b-button class="buttonOk" v-on:click="STOPSV ()" variant="success">STOP</b-button></b-col>
+              <b-col cols="2"></b-col>
+              <b-col cols="5"><b-button class="buttonHelp" v-on:click="HELPSV ()" variant="warning">HELP</b-button></b-col>
               <br>
             </b-row>
           </div>
@@ -473,5 +478,29 @@ input#color3:checked {
 * {
   user-select: none;
   outline: none;
+}
+.buttonOk {
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  margin: 4px 2px;
+  cursor: pointer;
+  padding: 18px 150px;
+}
+.buttonHelp {
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  margin: 4px 2px;
+  cursor: pointer;
+  padding: 18px 150px;
 }
 </style>
